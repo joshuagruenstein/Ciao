@@ -14,7 +14,7 @@ def getPosts(posts):
 	with open("posts.txt","r") as f:
 		lines = f.readlines()
 
-	return json.dumps(lines[len(lines)-posts:], ensure_ascii=False)
+	return json.dumps(lines[len(lines)-(posts if posts<len(lines) else len(lines)):], ensure_ascii=False)
 
 @app.route('/post', methods=['POST'])
 def post():
