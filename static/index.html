@@ -2,29 +2,63 @@
 <html>
 
 <head>
-	<title>HiFive</title>
+	<title>Ciao</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Poiret+One|Sacramento);
+
+		body {
+			background-color:#ECF0F1;
+		}
+
+		h1, h4 {
+			color:#2980B9;
+			font-family: Poiret One;
+		}
+
+		h1 {
+			font-size:5em;
+			margin-bottom:.5em;
+			text-align:center;
+		}
+
+		h4 {
+			font-size:2em;
+			text-align:left;
+		}
+
+		#submitBtn {
+			color:#E74C3C;
+			font-size:1.6em;
+		}
+
+		#charBox {
+			text-align:right;
+			font-family:Poiret One;
+		}
+
+	</style>
 </head>
 
 <body>
 	<div class="container">
 
-		<center><h1>HiFive</h1></center>
+		<h1>Ciao</h1>
 
 		<div class="row">
 			<div class="col-xs-10">
 				<textarea class="form-control" rows="2" id="comment" maxlength="100"></textarea>
-				<div>Characters: <span id="chars">0</span>/100</div>
+				<div id="charBox"><span id="chars">0</span>/100</div>
 			</div>
 			<div class="col-xs-2">
 				<button type="button" class="btn btn-default btn-block" style="height:53px" id="submitBtn">
-					<span class="glyphicon glyphicon-heart"></span>
+					<span class="glyphicon glyphicon-pencil"></span>
 				</button>
 			</div>
 		</div>
 
 		<br />
-		<center><h4>Posts</h4></center>
+		<h4>Posts</h4>
 
 		<div id="posts"></div>
 	</div>
