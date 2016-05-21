@@ -107,6 +107,11 @@
 			getPosts(10,renderPosts);
 		}
 
+		function refreshRecursive() {
+			refreshPosts();
+			setTimeout(refreshRecursive, 500);
+		}
+
 		$("#comment").keyup(function(e) {
 			if (e.which == 13) {
 				$("#submitBtn").click();
@@ -132,7 +137,7 @@
 		});
 
 		refreshPosts();
-		var interval = setInterval(refreshPosts, 500);
+		setTimeout(refreshRecursive, 500);
 	</script>
 </body>
 
