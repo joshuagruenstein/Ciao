@@ -92,16 +92,30 @@
 		function renderPosts(posts) {
 			$("#posts").empty();
 			posts.forEach(function(post) {
-				$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post+'</div></div>');
+				if (/\S/.test(post)) {
+					$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post+'</div></div>');
+				}
 			});
 		}
 
 		renderPosts(getPosts(10));
 
+		$("#comment").keyup(function(e) {
+			if (e.which == 13) {
+				$("#submitBtn").click();
+				return false;
+			}
+		});
+
 		$("#submitBtn").click(function() {
-			var text = $("#comment").val();
-			post(text);
-			renderPosts(getPosts(10));
+			var text = $("#comment").val().trim();
+
+			if (text.length > 0) {
+				post(text);
+				renderPosts(getPosts(10));
+			}
+
+			$("#comment").val('');
 		});
 
 		$("#comment").bind('input propertychange', function() {
