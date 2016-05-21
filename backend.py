@@ -9,17 +9,19 @@ app = Flask(__name__, static_url_path='')
 def index():
     return app.send_static_file('index.html')
 
-@app.route('/getPosts/<int:posts>', methods=['GET'])
+@app.route('/post/<int:posts>', methods=['GET'])
 def getPosts(posts):
 	with open("posts.txt","r") as f:
 		lines = f.readlines()
 
 	return json.dumps(lines[len(lines)-posts:], ensure_ascii=False)
 
-@app.route('/post/<postContent>', methods=['POST'])
-def post(postContent):
+@app.route('/post', methods=['POST'])
+def post():
+	contents = request.get_data().decode('iso-8859-1')
+	print("Contents: " + contents)
 	with open("posts.txt","a") as f:
-		f.write("\n"+postContent)
+		f.write("\n"+contents)
 
 	return 'ok'
 

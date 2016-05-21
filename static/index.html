@@ -1,1 +1,81 @@
-hello world
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HiFive</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+
+		<center><h1>HiFive</h1></center>
+
+		<div class="row">
+			<div class="col-xs-10">
+				<textarea class="form-control" rows="2" id="comment" maxlength="100"></textarea>
+				<div>Characters: <span id="chars">0</span>/100</div>
+			</div>
+			<div class="col-xs-2">
+				<button type="button" class="btn btn-default btn-block" style="height:53px" id="submitBtn">
+					<span class="glyphicon glyphicon-heart"></span>
+				</button>
+			</div>
+		</div>
+
+		<br />
+		<center><h4>Posts</h4></center>
+
+		<div id="posts"></div>
+	</div>
+
+	<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script>
+
+		var url = "http://localhost:9990/"
+
+		function getPosts(numPosts) {
+			posts = $.ajax({
+				url: url + "post/" + numPosts,
+				async: false,
+				method: "GET",
+				dataType:"json"
+			});
+			console.log(posts.responseJSON);
+			return posts.responseJSON;
+		}
+
+		function post(contents) {
+			response = $.ajax({
+				url: url + "post",
+				async: false,
+				method: "POST",
+				data: contents
+			});
+		}
+
+		function renderPosts(posts) {
+			$("#posts").empty();
+			posts.forEach(function(post) {
+				$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post+'</div></div>');
+			});
+		}
+
+		renderPosts(getPosts(10));
+
+		$("#submitBtn").click(function() {
+			var text = $("#comment").val();
+			post(text);
+			renderPosts(getPosts(10));
+		});
+
+		$("#comment").bind('input propertychange', function() {
+			var length = $("#comment").val().length;
+			$("#chars").text(length);
+		});
+
+	</script>
+</body>
+
+</html>
