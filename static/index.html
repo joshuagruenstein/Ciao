@@ -98,7 +98,9 @@
 			});
 		}
 
-		renderPosts(getPosts(10));
+		function refreshPosts() {
+			renderPosts(getPosts(10));
+		}
 
 		$("#comment").keyup(function(e) {
 			if (e.which == 13) {
@@ -124,6 +126,8 @@
 			$("#chars").text(length);
 		});
 
+		refreshPosts();
+		var interval = setInterval(refreshPosts, 100);
 	</script>
 </body>
 
