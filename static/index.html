@@ -96,7 +96,7 @@
 			$("#posts").empty();
 			posts.forEach(function(post) {
 				if (/\S/.test(post)) {
-					$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post+'</div></div>');
+					$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+'</div></div>');
 				}
 			});
 		}
