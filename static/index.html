@@ -68,7 +68,7 @@
 	<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script>
-
+		var lastPosts = []
 		var url = "http://162.243.250.117/"
 
 		function getPosts(numPosts, callback) {
@@ -93,12 +93,14 @@
 		}
 
 		function renderPosts(posts) {
-			$("#posts").empty();
-			posts.forEach(function(post) {
-				if (/\S/.test(post)) {
-					$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+'</div></div>');
-				}
-			});
+			if (posts.toString() !== lastPosts.toString()) {
+				$("#posts").empty();
+				posts.forEach(function(post) {
+					if (/\S/.test(post)) {
+						$("#posts").prepend('<div class="panel panel-default"><div class="panel-body">'+post.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+'</div></div>');
+					}
+				}); lastPosts = posts;
+			}
 		}
 
 		function refreshPosts() {
