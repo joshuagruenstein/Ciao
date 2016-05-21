@@ -75,7 +75,9 @@
 				async: false,
 				method: "GET",
 				dataType:"json",
-				success: callback(data)
+				success: function(data) {
+					callback(data);
+				}
 			});
 		}
 
