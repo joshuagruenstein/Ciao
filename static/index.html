@@ -69,15 +69,14 @@
 
 		var url = "http://162.243.250.117/"
 
-		function getPosts(numPosts) {
+		function getPosts(numPosts, callback) {
 			posts = $.ajax({
 				url: url + "post/" + numPosts,
 				async: false,
 				method: "GET",
-				dataType:"json"
+				dataType:"json",
+				success: callback(data)
 			});
-			console.log(posts.responseJSON);
-			return posts.responseJSON;
 		}
 
 		function post(contents) {
@@ -99,7 +98,7 @@
 		}
 
 		function refreshPosts() {
-			renderPosts(getPosts(10));
+			getPosts(10,renderPosts);
 		}
 
 		$("#comment").keyup(function(e) {
@@ -114,7 +113,7 @@
 
 			if (text.length > 0) {
 				post(text);
-				renderPosts(getPosts(10));
+				refreshPosts();
 			}
 
 			$("#comment").val('');
