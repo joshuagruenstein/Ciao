@@ -120,7 +120,7 @@
 		});
 
 		$("#submitBtn").click(function() {
-			var text = $("#comment").val().trim();
+			var text = $("#comment").val().trim().replace(/\n/g, " ");
 
 			if (text.length > 0) {
 				post(text);
