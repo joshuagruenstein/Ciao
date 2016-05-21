@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import json
 from flask import Flask, request
 
 app = Flask(__name__, static_url_path='')
@@ -10,15 +11,17 @@ def index():
 
 @app.route('/getPosts/<int:posts>', methods=['GET'])
 def getPosts(posts):
-    # get posts
+	with open("posts.txt","r") as f:
+		lines = f.readlines()
 
-    return 'ok'
+	return json.dumps(lines[len(lines)-posts:], ensure_ascii=False)
 
-@app.route('/post', methods=['POST'])
-def post():
-	# make post
+@app.route('/post/<postContent>', methods=['POST'])
+def post(postContent):
+	with open("posts.txt","a") as f:
+		f.write("\n"+postContent)
 
 	return 'ok'
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0',port=80,debug=True)
+    app.run(host= '0.0.0.0',port=9990,debug=True)
